@@ -6,9 +6,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class EvilHangman {
-
     public static void main(String[] args) throws IOException, EmptyDictionaryException, GuessAlreadyMadeException {
-        try {
+
+        try {//oh i hardcoded it
             EvilHangmanGame game = new EvilHangmanGame();
             while (!game.isOver) {
                 //Checks to make sure we have sufficient guesses left
@@ -19,7 +19,8 @@ public class EvilHangman {
                 }
 
                 try {
-                    char userChoice = displayAndPrompt(game);
+                    char userChoice = displayAndPrompt(game
+                    );
                     SortedSet guess = (TreeSet) game.makeGuess(userChoice);
 
                     if (guess.size() > 0) {
@@ -36,6 +37,8 @@ public class EvilHangman {
 
                 } catch (IOException e){
                     System.out.println("Invalid input type");
+                } catch (GuessAlreadyMadeException e){
+                    System.out.println("Guess already made");
                 }
 
                 System.out.println("------------");
@@ -44,6 +47,8 @@ public class EvilHangman {
             e.printStackTrace();
         }
     }
+    //we gonna do this like a 2009 youtube tutorial
+
 
     private static char displayAndPrompt(EvilHangmanGame game) throws IOException, GuessAlreadyMadeException{
         Scanner scanner = new Scanner(System.in);  // Create a Scanner object
@@ -59,7 +64,7 @@ public class EvilHangman {
         } else {
             System.out.println("Used letters:");
         }
-        System.out.println("Word: " + game.getStringRep());
+        System.out.println("Word: " + game.currentPattern);
         System.out.print("Enter guess: ");
         userGuess = scanner.nextLine().toLowerCase().charAt(0);
         if (!Character.isLetter(userGuess)){

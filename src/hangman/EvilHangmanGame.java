@@ -17,11 +17,11 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     TreeSet<String> wordSet;
     char previousGuess;
     private String minCharSetStr;
-    private String currentPattern;
+    public String currentPattern;
 
 
     public EvilHangmanGame() throws IOException, EmptyDictionaryException {
-        startGame(new File("dictionary.txt"), 3);
+        startGame(new File("dictionary.txt"), 5);
     }
 
 
@@ -30,7 +30,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         for (int i = 0; i < wordLength; i++){
             currentPattern = currentPattern+"-";
         }
-        this.guessesLeft = 10;
+        this.guessesLeft = 26; //Can you call me back on slack?
         this.guessedLetters = new TreeSet<>();
         this.isOver = false;
         this.wordLength = wordLength;
@@ -94,6 +94,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
 
 
         guessedLetters.add(guess);
+
         this.wordSet = getMaxPartition(partitions, guess);
         return wordSet;
     }
@@ -199,12 +200,11 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         //populate out with dashes to avoid index errors
         for (char c : guessedLetters) {
             for (int i = 0; i < word.length(); i++) {
-                if (word.charAt(i) != c) {
-                    key[i] = '-';
+                if (word.charAt(i) == c) {
+                    key[i] = c;
                 }
             }
         }
-
         return Arrays.toString(key).replace("]","").replace("[","");
     }
 

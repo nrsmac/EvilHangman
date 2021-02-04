@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class HangmanTest {
+public class HangmanTest { //4gb of ram so...
 
     private IEvilHangmanGame studentGame;
     private static final String DICTIONARY = "dictionary.txt";
